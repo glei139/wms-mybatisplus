@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kunchi.wms.mapper.ProductMapper">
+
+    <select id="selectProduct" resultType="com.kunchi.wms.entity.Product">
+        select id,productCode,productName,storeCode,storeName,inventory,creatTime from product
+        <where>
+            <if test="reqProSerach.productCode!=null and reqProSerach.productCode!=''">
+                and productCode = #{reqProSerach.productCode}
+            </if>
+            <if test="reqProSerach.productName!=null and reqProSerach.productName!=''">
+                and productName like '%${reqProSerach.productName}%'
+            </if>
+            <if test="reqProSerach.storeCode!=null and reqProSerach.storeCode!=''">
+                and storeCode = #{reqProSerach.storeCode}
+            </if>
+            <if test="reqProSerach.storeName!=null and reqProSerach.storeName!=''">
+                and storeName like '%${reqProSerach.storeName}%'
+            </if>
+        </where>
+    </select>
+
+</mapper>
